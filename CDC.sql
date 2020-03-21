@@ -1,8 +1,8 @@
 
-USE Priority
+USE [Priority]
 
 
---- δτςμϊ ρι.γι.ρι ςμ δγΰθΰ αιιρ εςμ δθαμΰεϊ δψμεεπθιεϊ---
+--- Χ”Χ¤ΧΆΧΧª Χ΅Χ™.Χ“Χ™.Χ΅Χ™ ΧΆΧ Χ”Χ“ΧΧΧ Χ‘Χ™Χ™Χ΅ Χ•ΧΆΧ Χ”ΧΧ‘ΧΧΧ•Χª Χ”Χ¨ΧΧ•Χ•Χ ΧΧ™Χ•Χª---
 GO
 EXEC sys.sp_cdc_enable_db
 
@@ -16,7 +16,7 @@ EXEC sys.sp_cdc_enable_table
   , @captured_column_list = N'ProductCategoryKey, CategoryName '
   , @filegroup_name = N'PRIMARY';
 
-/* ιφιψϊ θαμϊ ξςχα ΰηψ δμ.ρ.π ωαθαμΰεϊ δρι.γι.ρι, λκ πελμ μγςϊ διλο αιφςπε ΰϊ δθςιπδ δΰιπχψξπθμιϊ δΰηψεπδ μτι δμ.ρ.π δΰηψεο
+/*Χ™Χ¦Χ™Χ¨Χª ΧΧ‘ΧΧª ΧΧΆΧ§Χ‘ ΧΧ—Χ¨ Χ”Χ.Χ΅.Χ  Χ©Χ‘ΧΧ‘ΧΧΧ•Χª Χ”Χ΅Χ™.Χ“Χ™.Χ΅Χ™, Χ›Χ Χ Χ•Χ›Χ ΧΧ“ΧΆΧª Χ”Χ™Χ›Χ Χ‘Χ™Χ¦ΧΆΧ Χ• ΧΧª Χ”ΧΧΆΧ™Χ Χ” Χ”ΧΧ™Χ Χ§Χ¨ΧΧ ΧΧΧ™Χª Χ”ΧΧ—Χ¨Χ•Χ Χ” ΧΧ¤Χ™ Χ”Χ.Χ΅.Χ  Χ”ΧΧ—Χ¨Χ•Χ
 */
 
 CREATE TABLE [util].[HWM] (
@@ -25,7 +25,7 @@ CREATE TABLE [util].[HWM] (
 	numRecords BIGINT NOT NULL
 )
 
----ΰλμερ ψΰωεπι ωμ θαμϊ δξςχα--
+---ΧΧ›ΧΧ•Χ΅ Χ¨ΧΧ©Χ•Χ Χ™ Χ©Χ ΧΧ‘ΧΧª Χ”ΧΧΆΧ§Χ‘--
 
 INSERT INTO util.HWM (captureInstance, maxLSN, numRecords)
 SELECT 'staging_CategoriesDetailSource', UPPER(sys.fn_varbintohexstr(MAX(__$start_lsn))), 0
@@ -34,11 +34,11 @@ FROM [cdc].[dbo_Categories_CT]
 select * from util.HWM
 select * from [cdc].[dbo_Categories_CT]
 
-----ΰλμερ ψΰωεπι ωμ θαμϊ δξψΰδ αξηρο δπϊεπιν(τςν ΰηϊ αμαγ αϊηιμϊ δτψειιχθ)..ς
+----ΧΧ›ΧΧ•Χ΅ Χ¨ΧΧ©Χ•Χ Χ™ Χ©Χ ΧΧ‘ΧΧª Χ”ΧΧ¨ΧΧ” Χ‘ΧΧ—Χ΅Χ Χ”Χ ΧªΧ•Χ Χ™Χ(Χ¤ΧΆΧ ΧΧ—Χª Χ‘ΧΧ‘Χ“ Χ‘ΧªΧ—Χ™ΧΧª Χ”Χ¤Χ¨Χ•Χ™Χ™Χ§Χ) ΧΆ--
 insert into DWH.dbo.MrrCategories1
 select * from priority.dbo.Categories
 
----ιφιψϊ εειε ωωεΰα πϊεπιν ξθαμϊ δρι.γι.ρι εξαφς θψπρτεψξφιεϊ--
+---Χ™Χ¦Χ™Χ¨Χª Χ•Χ•Χ™Χ• Χ©Χ©Χ•ΧΧ‘ Χ ΧªΧ•Χ Χ™Χ ΧΧΧ‘ΧΧª Χ”Χ΅Χ™.Χ“Χ™.Χ΅Χ™ Χ•ΧΧ‘Χ¦ΧΆ ΧΧ¨Χ Χ΅Χ¤Χ•Χ¨ΧΧ¦Χ™Χ•Χª--
 
 CREATE VIEW staging.vwCategoriesDetailCDC 
 AS
@@ -57,8 +57,8 @@ AS
  FROM [cdc].[dbo_Categories_CT]
 GO
 
-/*ιφιψϊ τψεφγεψδ ωϊαφς ΰϊ θςιπδ ΰιπχψξπθμιϊ μθαμδ ιιςεγιϊ ωϊςχεα ΰηψ λμ δθψπζχφιεϊ ωδϊαφςε αθαμδ δϊτςεμιϊ
-ϊδεεδ βν θαμδ μωξιψϊ διρθεψιδ
+/*Χ™Χ¦Χ™Χ¨Χª Χ¤Χ¨Χ•Χ¦Χ“Χ•Χ¨Χ” Χ©ΧªΧ‘Χ¦ΧΆ ΧΧª ΧΧΆΧ™Χ Χ” ΧΧ™Χ Χ§Χ¨ΧΧ ΧΧΧ™Χª ΧΧΧ‘ΧΧ” Χ™Χ™ΧΆΧ•Χ“Χ™Χª Χ©ΧªΧΆΧ§Χ•Χ‘ ΧΧ—Χ¨ Χ›Χ Χ”ΧΧ¨Χ Χ–Χ§Χ¦Χ™Χ•Χª Χ©Χ”ΧªΧ‘Χ¦ΧΆΧ• Χ‘ΧΧ‘ΧΧ” Χ”ΧªΧ¤ΧΆΧ•ΧΧ™Χª
+ΧªΧ”Χ•Χ•Χ” Χ’Χ ΧΧ‘ΧΧ” ΧΧ©ΧΧ™Χ¨Χª Χ”Χ™Χ΅ΧΧ•Χ¨Χ™Χ”
 */
 CREATE PROCEDURE pIncrementalLoad
 AS
@@ -67,11 +67,11 @@ DECLARE @NewMaxLSN BINARY(10);
 DECLARE @NumRecords INT;
 DECLARE @CaptureInstance SYSNAME = 'staging_CategoriesDetailSource';
 
---ξωιβ ΰϊ δμ.ρ.π δβαεδ δχεγν
+--ΧΧ©Χ™Χ’ ΧΧª Χ”Χ.Χ΅.Χ  Χ”Χ’Χ‘Χ•Χ” Χ”Χ§Χ•Χ“Χ
 SELECT @PreviousMaxLSN = CONVERT(BINARY(10), maxLSN, 1)
 FROM util.HWM
 WHERE captureInstance = @CaptureInstance;
---ξωιβ ΰϊ δμ.ρ.π δβαεδ δηγω
+--ΧΧ©Χ™Χ’ ΧΧª Χ”Χ.Χ΅.Χ  Χ”Χ’Χ‘Χ•Χ” Χ”Χ—Χ“Χ©
 SELECT @NewMaxLSN = MAX(__$start_LSN) FROM staging.vwCategoriesDetailCDC ;
 IF @NewMaxLSN IS NULL OR @NewMaxLSN = @PreviousMaxLSN 
 BEGIN
@@ -79,14 +79,14 @@ BEGIN
 	Print 'Incremental load procedure returned without making any changes.'
 	
 END;
---ξλπιρ ΰϊ λμ δψωεξεϊ δηγωεϊ ωδϊεερτε μθαμϊ ξιψεψ αξηρο δπϊεπιν--
+--ΧΧ›Χ Χ™Χ΅ ΧΧª Χ›Χ Χ”Χ¨Χ©Χ•ΧΧ•Χª Χ”Χ—Χ“Χ©Χ•Χª Χ©Χ”ΧªΧ•Χ•Χ΅Χ¤Χ• ΧΧΧ‘ΧΧª ΧΧ™Χ¨Χ•Χ¨ Χ‘ΧΧ—Χ΅Χ Χ”Χ ΧªΧ•Χ Χ™Χ--
 INSERT INTO Dwh.[dbo].[MrrCategories] (ProductCategoryKey,CategoryName,OperationStatus)
 SELECT ProductCategoryKey,CategoryName,OperationStatus
 FROM staging.vwCategoriesDetailCDC 
 WHERE __$start_LSN > @PreviousMaxLSN
 AND __$start_LSN <= @NewMaxLSN
 SET @NumRecords = @@RowCount;
---ξςγλο ΰϊ θαμϊ HHN μβαι δμ.ρ.π δηγω δβαεδδ
+--ΧΧΆΧ“Χ›Χ ΧΧª ΧΧ‘ΧΧª Χ”ΧΧΆΧ§Χ‘ ΧΧ’Χ‘Χ™ Χ”Χ.Χ΅.Χ  Χ”Χ—Χ“Χ© Χ”Χ’Χ‘Χ•Χ” Χ‘Χ™Χ•ΧªΧ¨
 UPDATE util.HWM
 SET maxLSN = UPPER(sys.fn_varbintohexstr(@NewMaxLSN)),
 	numRecords = @NumRecords
@@ -95,7 +95,7 @@ PRINT 'There were ' + CAST(@Numrecords AS VARCHAR) + ' records inserted in this 
 GO
 
 
------------------------------  τψεφγεψδ ΰρ.ρι.γι ρεβ 2-------------------------------------------------------
+----------------------------- SCD type 2-------------------------------------------------------
 create proc SDC_Categories as 
 DECLARE @Yesterday INT = (YEAR(DATEADD(dd,-1,GETDATE())) * 10000) + (MONTH(DATEADD(dd,-1,GETDATE())) * 100) + DAY(DATEADD(dd,-1,GETDATE()))
 DECLARE @Today INT = (YEAR(GETDATE()) * 10000) + (MONTH(GETDATE()) * 100) + DAY(GETDATE())
@@ -108,11 +108,11 @@ FROM
 MERGE INTO dbo.DimCategories AS T
 USING [Priority].dbo.Categories AS S
 ON (S.ProductCategoryKey = T.ProductCategoryKey)
--- δλπρϊ ψωεξεϊ
+-- Γ¤Γ«Γ°Γ±ΓΊ ΓΈΓΉΓ¥Γ®Γ¥ΓΊ
 WHEN NOT MATCHED THEN 
 INSERT (ProductCategoryKey,CategoryName , ValidFrom, IsCurrent)
 VALUES (s.ProductCategoryKey,s.CategoryName , @Today, 1)
--- ςγλεο ψωεξεϊ
+-- Χ”Χ›Χ Χ΅Χª Χ¨Χ©Χ•ΧΧ•Χª
 WHEN MATCHED 
 AND IsCurrent = 1
 AND (
@@ -120,7 +120,7 @@ AND (
  OR ISNULL(t.CategoryName,'') <> ISNULL(s.CategoryName,'') 
 
  )
--- ςγλεο δτμΰβ
+-- ΧΆΧ“Χ›Χ•Χ Χ¨Χ©Χ•ΧΧ•Χª
 THEN UPDATE 
 SET t.IsCurrent = 0, t.ValidTo = @Yesterday
 OUTPUT s.ProductCategoryKey,s.CategoryName , $Action AS MergeAction
@@ -128,10 +128,6 @@ OUTPUT s.ProductCategoryKey,s.CategoryName , $Action AS MergeAction
 WHERE MRG.MergeAction = 'UPDATE'
 
 
-exec  SDC_Categories 
-
-select * from DimCategories
-select * from MrrCategories
 
 
 
