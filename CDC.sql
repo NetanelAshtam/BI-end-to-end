@@ -108,11 +108,11 @@ FROM
 MERGE INTO dbo.DimCategories AS T
 USING [Priority].dbo.Categories AS S
 ON (S.ProductCategoryKey = T.ProductCategoryKey)
--- äëðñú øùåîåú
+-- הכנסת רשומות
 WHEN NOT MATCHED THEN 
 INSERT (ProductCategoryKey,CategoryName , ValidFrom, IsCurrent)
 VALUES (s.ProductCategoryKey,s.CategoryName , @Today, 1)
--- הכנסת רשומות
+-- עדכון רשומות
 WHEN MATCHED 
 AND IsCurrent = 1
 AND (
@@ -120,7 +120,7 @@ AND (
  OR ISNULL(t.CategoryName,'') <> ISNULL(s.CategoryName,'') 
 
  )
--- עדכון רשומות
+-- עדכון הדגל
 THEN UPDATE 
 SET t.IsCurrent = 0, t.ValidTo = @Yesterday
 OUTPUT s.ProductCategoryKey,s.CategoryName , $Action AS MergeAction
